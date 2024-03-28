@@ -1,0 +1,38 @@
+server:
+  port: 8889
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:${user.dir}/config, file:${user.dir}/messages
+#          git:
+#            uri: https://innersource.accenture.com/scm/~a.buttarazzi/sdi-config-repository.git
+  #          clone-on-start: true
+  profiles:
+    active: native
+
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 60
+    leaseRenewalIntervalInSeconds: 15
+    instanceId: ${spring.application.name}:${server.port}
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8762/eureka/
+    eureka-server-connect-timeout-seconds: 8
+
+management:
+  endpoint:
+    health:
+      show-details: WHEN_AUTHORIZED
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics

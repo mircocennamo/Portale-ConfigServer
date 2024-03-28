@@ -1,0 +1,38 @@
+server:
+  servlet:
+    context-path: /oim
+  port: 9086
+
+---
+#configurazione ambiente locale
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:ORCLCDB
+    username: ssd_security
+    password: ssd_security
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    show-sql: true
+
+---
+#configurazione ambiente sviluppo
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:oracle:thin:@192.168.22.20:1521/orclpdbssdsvil.ced.local
+    username: ssd_security
+    password: ssd_security
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    show-sql: true
+    
+mapstruct:
+  unmappedTargetPolicy: ignore
+
+
+
